@@ -1,15 +1,16 @@
 {
   "name": "stardog-js",
-  "version": "0.0.2",
-  "main": "index.js",
+  "version": "0.0.11",
+  "description": "JavaScript library for communication with the Stardog HTTP server.",
   "repository": "https://github.com/x0r2/stardog-js",
   "author": "x0r2",
   "license": "MIT",
   "files": [
-    "./dist/index.js"
+    "index.js",
+    "index.mjs"
   ],
   "scripts": {
-    "build": "babel src --out-dir dist",
+    "build": "babel index.mjs -o index.js",
     "prepublish": "yarn build"
   },
   "devDependencies": {
