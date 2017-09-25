@@ -1,6 +1,6 @@
 {
   "presets": [
-    "babel-preset-latest"
+    "latest"
   ],
   "plugins": [
     "transform-object-rest-spread",
