@@ -1,2 +1,2 @@
 # stardog-js
-JavaScript library for communication with the Stardog HTTP server
+JavaScript library for communication with the Stardog HTTP server.
