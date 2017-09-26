@@ -3,9 +3,7 @@ JavaScript library for communication with the Stardog HTTP server.
 
 ## Install
 
-```sh
-$ npm i stardog-js
-```
+    $ npm i stardog-js
 
 ## Import
 
