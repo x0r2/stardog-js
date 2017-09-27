@@ -15,6 +15,7 @@ const Stardog = require('stardog-js');
 
 ### Using ESM
 
+Use --experimental-modules flag (Node.js >= 8.6.0)
 ```js
 import Stardog from 'stardog-js';
 ```
