@@ -1,6 +1,6 @@
 {
   "name": "stardog-js",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "JavaScript library for communication with the Stardog HTTP server.",
   "repository": "https://github.com/x0r2/stardog-js",
   "author": "x0r2",
