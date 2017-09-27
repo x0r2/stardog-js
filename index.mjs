@@ -90,9 +90,9 @@ export default class Stardog {
                 offset: options.offset,
                 timeout: options.timeout,
                 reasoning: options.reasoning,
-                graph: options.graph,
-                insertGraph: options.insertGraph,
-                removeGraph: options.removeGraph
+                'using-graph-uri': options.graph,
+                'insert-graph-uri': options.insertGraph,
+                'remove-graph-uri': options.removeGraph
             }
         });
     }
