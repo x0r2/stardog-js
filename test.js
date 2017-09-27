@@ -1,5 +1,7 @@
 import Stardog from './index';
 
+jest.setTimeout(10000);
+
 const testDb = 'test';
 
 const stardogAdmin = new Stardog({
