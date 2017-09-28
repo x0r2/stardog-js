@@ -2,6 +2,18 @@
   "name": "stardog-js",
   "version": "0.0.17",
   "description": "JavaScript library for communication with the Stardog HTTP server.",
+  "keywords": [
+    "stardog",
+    "triplestore",
+    "graph database",
+    "semantic web",
+    "linked data",
+    "sparql",
+    "owl",
+    "rdf",
+    "turtle",
+    "n3"
+  ],
   "repository": "https://github.com/x0r2/stardog-js",
   "author": "x0r2",
   "license": "MIT",
