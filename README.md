@@ -37,11 +37,11 @@ const stardog = new Stardog({
 
 const stardog = new Stardog({
     endpoint: 'http://localhost:5820',
+    database: 'database',
     auth: {
         user: 'user',
         pass: 'pass'
-    },
-    database: 'database'
+    }
 });
 ```
 
@@ -51,11 +51,11 @@ const stardog = new Stardog({
 // Credentials and database are optional, this have lower priority than constructor settings
 
 const data = await stardog.query({
+    database: 'database',
     auth: {
         user: 'user',
         pass: 'pass'
     },
-    database: 'database',
     query: 'select * where {?s ?p ?o}'
 }).catch((err) => {
     return Promise.reject(err);
@@ -69,11 +69,11 @@ import Stardog from 'stardog-js';
 
 const stardogAdminDatabase = new Stardog({
     endpoint: 'http://localhost:5820',
+    database: 'database',
     auth: {
         user: 'admin',
         pass: 'admin'
-    },
-    database: 'database'
+    }
 });
 
 const stardogAdmin = new Stardog({
@@ -99,11 +99,11 @@ async function main() {
     });
 
     const data3 = await stardog.query({
+        database: 'database',
         auth: {
             user: 'admin',
             pass: 'admin'
         },
-        database: 'database',
         query: 'select * where {?s ?p ?o}'
     });
 }
@@ -176,6 +176,8 @@ const data = await stardog.query({
     query: 'select * where {?s ?p ?o}'
 });
 
+// Set accept to 'text/boolean', returns true or false
+
 const data = await stardog.query({
     accept: 'text/boolean',
     query: 'ask {<urn:a> <urn:b> <urn:c>}'
@@ -185,6 +187,8 @@ const data = await stardog.query({
     query: 'construct {?s ?p ?o} where {?s ?p ?o}'
 });
 
+// Query to named graph 'tag:stardog:api:context:default'
+
 const data = await stardog.query({
     query: 'select * where {?s ?p ?o}',
     offset: 0,
@@ -193,6 +197,13 @@ const data = await stardog.query({
     reasoning: true,
     graph: 'tag:stardog:api:context:default'
 });
+
+// Query to two named graphs
+
+const data = await stardog.query({
+    query: 'select * where {?s ?p ?o}',
+    graph: ['urn:graph', 'urn:graph2']
+});
 ```
 
 #### update
@@ -200,4 +211,21 @@ const data = await stardog.query({
 Execute update query.
 
 ```js
+await stardog.update({
+    query: 'insert data {<urn:a> <urn:b> <urn:c>}'
+});
+
+// Insert to named graph 'urn:graph'
+
+await stardog.update({
+    query: 'insert data {<urn:a> <urn:b> <urn:c>}',
+    insertGraph: 'urn:graph'
+});
+
+// Remove from named graph 'urn:graph'
+
+await stardog.update({
+    query: 'delete data {<urn:a> <urn:b> <urn:c>}',
+    removeGraph: 'urn:graph'
+});
 ```
