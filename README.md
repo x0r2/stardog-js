@@ -48,7 +48,8 @@ const stardog = new Stardog({
 ### Invoke methods
 
 ```js
-// Credentials and database are optional, this have lower priority than constructor settings
+// Credentials and database are optional,
+// this have lower priority than constructor settings
 
 const data = await stardog.query({
     database: 'database',
