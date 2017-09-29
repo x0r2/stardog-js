@@ -19,7 +19,7 @@ beforeAll(async () => {
     });
 
     await stardog.update({
-        query: 'insert data {<urn:a> <urn:b> <urn:c>}'
+        query: 'insert data {<urn:s> <urn:p> <urn:o>}'
     });
 });
 
@@ -29,7 +29,7 @@ afterAll(async () => {
     });
 });
 
-describe('database', () => {
+describe('databases', () => {
     test('create', async () => {
         await stardog.createDatabase({
             database: 'create'
@@ -83,16 +83,16 @@ describe('database', () => {
     });
 });
 
-describe('query', () => {
+describe('queries', () => {
     test('ask', async () => {
         expect(await stardog.query({
             accept: 'text/boolean',
-            query: 'ask {<urn:a> <urn:b> <urn:c>}'
+            query: 'ask {<urn:s> <urn:p> <urn:o>}'
         })).toBeTruthy();
 
         expect(await stardog.query({
             accept: 'text/boolean',
-            query: 'ask {<urn:a> <urn:b> <urn:d>}'
+            query: 'ask {<urn:s> <urn:p> <urn:p>}'
         })).toBeFalsy();
     });
 
@@ -103,9 +103,9 @@ describe('query', () => {
             head: {vars: ['s', 'p', 'o']},
             results: {
                 bindings: [{
-                    s: {type: 'uri', value: 'urn:a'},
-                    o: {type: 'uri', value: 'urn:c'},
-                    p: {type: 'uri', value: 'urn:b'}
+                    s: {type: 'uri', value: 'urn:s'},
+                    p: {type: 'uri', value: 'urn:p'},
+                    o: {type: 'uri', value: 'urn:o'}
                 }]
             }
         });
@@ -114,14 +114,43 @@ describe('query', () => {
     test('construct', async () => {
         expect(await stardog.query({
             query: 'construct {?s ?p ?o} where {?s ?p ?o}'
-        })).toBe('\r\n<urn:a> <urn:b> <urn:c> .\r\n');
+        })).toBe('\r\n<urn:s> <urn:p> <urn:o> .\r\n');
     });
 });
 
-describe('update', () => {
+describe('update queries', () => {
     test('insert', async () => {
         await stardog.update({
-            query: 'insert data {<urn:a> <urn:b> <urn:c>}'
+            query: 'insert data {<urn:insert> <urn:insert> <urn:insert>}'
         });
+
+        expect(await stardog.query({
+            accept: 'text/boolean',
+            query: 'ask {<urn:insert> <urn:insert> <urn:insert>}'
+        })).toBeTruthy();
+
+        await stardog.update({
+            query: 'delete data {<urn:insert> <urn:insert> <urn:insert>}'
+        });
+    });
+
+    test('remove', async () => {
+        await stardog.update({
+            query: 'insert data {<urn:remove> <urn:remove> <urn:remove>}'
+        });
+
+        expect(await stardog.query({
+            accept: 'text/boolean',
+            query: 'ask {<urn:remove> <urn:remove> <urn:remove>}'
+        })).toBeTruthy();
+
+        await stardog.update({
+            query: 'delete data {<urn:remove> <urn:remove> <urn:remove>}'
+        });
+
+        expect(await stardog.query({
+            accept: 'text/boolean',
+            query: 'ask {<urn:remove> <urn:remove> <urn:remove>}'
+        })).toBeFalsy();
     });
 });
