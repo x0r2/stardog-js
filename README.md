@@ -1,5 +1,5 @@
 # stardog-js
-JavaScript library for communication with the Stardog HTTP server.
+JavaScript (Node.js) library for communication with the Stardog HTTP server.
 
 ## Install
 
@@ -11,6 +11,7 @@ $ yarn add stardog-js
 
 ### Using CommonJS
 
+Requirements (Node.js >= 8.0.0).
 ```js
 const Stardog = require('stardog-js');
 ```
