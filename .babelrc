@@ -1,10 +1,22 @@
 {
   "presets": [
-    "latest"
+    [
+      "env",
+      {
+        "targets": {
+          "node": "8"
+        },
+        "useBuiltIns": true
+      }
+    ]
   ],
   "plugins": [
-    "add-module-exports",
-    "transform-object-rest-spread",
-    "transform-runtime"
+    [
+      "transform-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
+    ],
+    "add-module-exports"
   ]
 }
