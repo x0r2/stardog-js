@@ -122,7 +122,7 @@ main();
 Create new database.
 
 ```js
-await stardog.createDatabase({
+stardog.createDatabase({
     database: 'database'
 });
 ```
@@ -132,7 +132,7 @@ await stardog.createDatabase({
 Drop database.
 
 ```js
-await stardog.dropDatabase({
+stardog.dropDatabase({
     database: 'database'
 });
 ```
@@ -152,7 +152,7 @@ const size = await stardog.sizeDatabase({
 Get list databases.
 
 ```js
-const list = await stardog.listDatabases();
+const databases = await stardog.listDatabases();
 ```
 
 #### existsDatabase
@@ -193,11 +193,11 @@ const data = await stardog.query({
 
 const data = await stardog.query({
     query: 'select * where {?s ?p ?o}',
+    graph: 'tag:stardog:api:context:default',
     offset: 0,
     limit: 1,
     timeout: 1000,
-    reasoning: true,
-    graph: 'tag:stardog:api:context:default'
+    reasoning: true
 });
 
 // Query to two named graphs
@@ -213,20 +213,24 @@ const data = await stardog.query({
 Execute update query.
 
 ```js
-await stardog.update({
+stardog.update({
     query: 'insert data {<urn:a> <urn:b> <urn:c>}'
+});
+
+stardog.update({
+    query: 'delete data {<urn:a> <urn:b> <urn:c>}'
 });
 
 // Insert to named graph 'urn:graph'
 
-await stardog.update({
+stardog.update({
     query: 'insert data {<urn:a> <urn:b> <urn:c>}',
     insertGraph: 'urn:graph'
 });
 
 // Remove from named graph 'urn:graph'
 
-await stardog.update({
+stardog.update({
     query: 'delete data {<urn:a> <urn:b> <urn:c>}',
     removeGraph: 'urn:graph'
 });
