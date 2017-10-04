@@ -1,7 +1,13 @@
 {
   "name": "stardog-js",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "JavaScript (Node.js) library for communication with the Stardog HTTP server.",
+  "author": "x0r2",
+  "license": "MIT",
+  "repository": "https://github.com/x0r2/stardog-js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "keywords": [
     "stardog",
     "triplestore",
@@ -14,9 +20,6 @@
     "turtle",
     "n3"
   ],
-  "repository": "https://github.com/x0r2/stardog-js",
-  "author": "x0r2",
-  "license": "MIT",
   "files": [
     "index.mjs",
     "index.js",
