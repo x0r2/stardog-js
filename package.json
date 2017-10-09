@@ -1,6 +1,6 @@
 {
   "name": "stardog-js",
-  "version": "0.0.20",
+  "version": "0.1.0",
   "description": "JavaScript (Node.js) library for communication with the Stardog HTTP server.",
   "author": "x0r2",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "stardog",
     "triplestore",
     "graph database",
+    "graph store",
     "semantic web",
     "linked data",
     "sparql",
@@ -27,7 +28,7 @@
   ],
   "scripts": {
     "build": "babel index.mjs -o index.js",
-    "test": "jest",
+    "test": "yarn build && jest",
     "prepublish": "yarn build && yarn test"
   },
   "devDependencies": {
