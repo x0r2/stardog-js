@@ -63,7 +63,53 @@ export default class Stardog {
     }
 
     async existsDatabase(options) {
-        return (await this.listDatabases(options)).includes(options.database);
+        return (await this.listDatabases({
+            auth: options.auth
+        })).includes(options.database);
+    }
+
+    dropGraph(options) {
+        return this.update({
+            database: options.database,
+            auth: options.auth,
+            query: `drop graph <${options.graph}>`
+        });
+    }
+
+    copyGraph(options) {
+        return this.update({
+            database: options.database,
+            auth: options.auth,
+            query: `copy <${options.from}> to <${options.to}>`
+        });
+    }
+
+    async listGraphs(options = {}) {
+        const resp = await this.query({
+            database: options.database,
+            auth: options.auth,
+            accept: 'text/csv',
+            // TODO: stripIndent
+            query: `
+                select distinct ?g where {
+                    graph ?g {?s ?p ?o}
+                }
+            `
+        });
+
+        const graphs = resp.split(/\r\n/);
+
+        graphs.shift();
+        graphs.pop();
+
+        return graphs;
+    }
+
+    async existsGraph(options) {
+        return (await this.listGraphs({
+            database: options.database,
+            auth: options.auth
+        })).includes(options.graph);
     }
 
     query(options) {
