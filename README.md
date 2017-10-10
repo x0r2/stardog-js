@@ -167,6 +167,47 @@ if (await stardog.existsDatabase({
 }
 ```
 
+### Graphs
+
+#### dropGraph
+
+Drop named graph.
+
+```js
+stardog.dropGraph({
+    graph: 'urn:graph'
+});
+```
+
+#### copyGraph
+
+Copy named graph.
+
+```js
+stardog.copyGraph({
+    from: 'urn:graph',
+    to: 'urn:to'
+});
+```
+
+#### listGraphs
+
+Get list of named graphs.
+
+```js
+const graphs = await stardog.listGraphs();
+```
+
+#### existsGraph
+
+Check exists named graph.
+
+```js
+const exists = await stardog.existsGraph({
+    graph: 'urn:graph'
+});
+```
+
 ### Queries
 
 #### query
