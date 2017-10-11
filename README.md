@@ -90,7 +90,7 @@ const stardog = new Stardog({
     endpoint: 'http://localhost:5820'
 });
 
-async function main() {
+(async () => {
     const data1 = await stardogAdminDatabase.query({
         query: 'select * where {?s ?p ?o}'
     });
@@ -108,9 +108,8 @@ async function main() {
         },
         query: 'select * where {?s ?p ?o}'
     });
-}
+})();
 
-main();
 ```
 
 ## API
