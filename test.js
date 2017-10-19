@@ -132,6 +132,75 @@ describe('graphs', () => {
         ]);
     });
 
+    test('move', async () => {
+        await stardog.update({
+            query: 'insert data {<urn:move> <urn:move> <urn:move>}',
+            insertGraph: 'urn:from'
+        });
+
+        expect(await stardog.existsGraph({
+            graph: 'urn:to'
+        })).toBeFalsy();
+
+        await stardog.moveGraph({
+            from: 'urn:from',
+            to: 'urn:to'
+        });
+
+        expect(await stardog.existsGraph({
+            graph: 'urn:from'
+        })).toBeFalsy();
+
+        expect(await stardog.existsGraph({
+            graph: 'urn:to'
+        })).toBeTruthy();
+
+        await Promise.all([
+            stardog.dropGraph({
+                graph: 'urn:to'
+            })
+        ]);
+    });
+
+    test('add', async () => {
+        await Promise.all([
+            stardog.update({
+                query: 'insert data {<urn:from> <urn:from> <urn:from>}',
+                insertGraph: 'urn:from'
+            }),
+            stardog.update({
+                query: 'insert data {<urn:to> <urn:to> <urn:to>}',
+                insertGraph: 'urn:to'
+            })
+        ]);
+
+        await stardog.addGraph({
+            from: 'urn:from',
+            to: 'urn:to'
+        });
+
+        expect(await stardog.query({
+            accept: 'text/boolean',
+            graph: 'urn:to',
+            // TODO: add stripIndent
+            query: `
+                ask {
+                    <urn:from> <urn:from> <urn:from> .
+                    <urn:to> <urn:to> <urn:to>
+                }
+            `
+        })).toBeTruthy();
+
+        await Promise.all([
+            stardog.dropGraph({
+                graph: 'urn:from'
+            }),
+            stardog.dropGraph({
+                graph: 'urn:to'
+            })
+        ]);
+    });
+
     test('list', async () => {
         expect(await stardog.listGraphs()).toEqual([]);
 

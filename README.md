@@ -3,8 +3,16 @@ JavaScript (Node.js) library for communication with the Stardog HTTP server.
 
 ## Install
 
+Yarn
+
 ```sh
 $ yarn add stardog-js
+```
+
+NPM:
+
+```sh
+$ npm i stardog-js
 ```
 
 ## Import
@@ -184,7 +192,29 @@ Copy named graph.
 
 ```js
 stardog.copyGraph({
-    from: 'urn:graph',
+    from: 'urn:from',
+    to: 'urn:to'
+});
+```
+
+#### moveGraph
+
+Move named graph.
+
+```js
+stardog.moveGraph({
+    from: 'urn:from',
+    to: 'urn:to'
+});
+```
+
+#### addGraph
+
+Insert data from source named graph to destination.
+
+```js
+stardog.addGraph({
+    from: 'urn:from',
     to: 'urn:to'
 });
 ```

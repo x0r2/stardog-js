@@ -84,12 +84,28 @@ export default class Stardog {
         });
     }
 
+    moveGraph(options) {
+        return this.update({
+            database: options.database,
+            auth: options.auth,
+            query: `move <${options.from}> to <${options.to}>`
+        });
+    }
+
+    addGraph(options) {
+        return this.update({
+            database: options.database,
+            auth: options.auth,
+            query: `add <${options.from}> to <${options.to}>`
+        });
+    }
+
     async listGraphs(options = {}) {
         const resp = await this.query({
             database: options.database,
             auth: options.auth,
             accept: 'text/csv',
-            // TODO: stripIndent
+            // TODO: add stripIndent
             query: `
                 select distinct ?g where {
                     graph ?g {?s ?p ?o}
@@ -97,7 +113,7 @@ export default class Stardog {
             `
         });
 
-        const graphs = resp.split(/\r\n/);
+        const graphs = resp.split(/\r\n/); // TODO: check \n
 
         graphs.shift();
         graphs.pop();
