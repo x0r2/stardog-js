@@ -1,6 +1,6 @@
 {
   "name": "stardog-js",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "JavaScript (Node.js) library for communication with the Stardog HTTP server.",
   "author": "x0r2",
   "license": "MIT",
@@ -28,8 +28,8 @@
   ],
   "scripts": {
     "build": "babel index.mjs -o index.js",
-    "test": "yarn build && jest",
-    "prepublish": "yarn build && yarn test"
+    "test": "npm build && jest",
+    "prepublish": "npm build && npm test"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
