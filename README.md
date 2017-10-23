@@ -3,16 +3,24 @@ JavaScript (Node.js) library for communication with the Stardog HTTP server.
 
 ## Install
 
-Yarn
+NPM:
+
+```sh
+$ npm i stardog-js
+```
+
+Yarn:
 
 ```sh
 $ yarn add stardog-js
 ```
 
-NPM:
+## Testing
+
+Run Stardog HTTP server on http://localhost:5820.
 
 ```sh
-$ npm i stardog-js
+$ npm test
 ```
 
 ## Import
@@ -275,6 +283,23 @@ const data = await stardog.query({
 const data = await stardog.query({
     query: 'select * where {?s ?p ?o}',
     graph: ['urn:graph', 'urn:graph2']
+});
+```
+
+#### ask
+
+Alias for "query" with accept "text/boolean".
+
+```js
+const data = await stardog.ask({
+    query: 'ask {<urn:a> <urn:b> <urn:c>}'
+});
+
+// Equal query
+
+const data = await stardog.query({
+    accept: 'text/boolean',
+    query: 'ask {<urn:a> <urn:b> <urn:c>}'
 });
 ```
 
