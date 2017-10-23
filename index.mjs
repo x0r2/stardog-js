@@ -128,6 +128,13 @@ export default class Stardog {
         })).includes(options.graph);
     }
 
+    ask(options) {
+        return this._queryUpdate('query', {
+            accept: 'text/boolean',
+            ...options
+        });
+    }
+
     query(options) {
         return this._queryUpdate('query', {
             accept: 'application/sparql-results+json, text/turtle',
