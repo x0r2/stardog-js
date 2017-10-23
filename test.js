@@ -37,7 +37,7 @@ describe('databases', () => {
 
         expect(await stardog.existsDatabase({
             database: 'create'
-        })).toBeTruthy();
+        })).toBe(true);
 
         stardog.dropDatabase({
             database: 'create'
@@ -51,7 +51,7 @@ describe('databases', () => {
 
         expect(await stardog.existsDatabase({
             database: 'drop'
-        })).toBeTruthy();
+        })).toBe(true);
 
         await stardog.dropDatabase({
             database: 'drop'
@@ -59,7 +59,7 @@ describe('databases', () => {
 
         expect(await stardog.existsDatabase({
             database: 'drop'
-        })).toBeFalsy();
+        })).toBe(false);
     });
 
     test('size', async () => {
@@ -75,11 +75,11 @@ describe('databases', () => {
     test('exists', async () => {
         expect(await stardog.existsDatabase({
             database: testDb
-        })).toBeTruthy();
+        })).toBe(true);
 
         expect(await stardog.existsDatabase({
             database: testDb + '2'
-        })).toBeFalsy();
+        })).toBe(false);
     });
 });
 
@@ -92,7 +92,7 @@ describe('graphs', () => {
 
         expect(await stardog.existsGraph({
             graph: 'urn:drop'
-        })).toBeTruthy();
+        })).toBe(true);
 
         await stardog.dropGraph({
             graph: 'urn:drop'
@@ -100,7 +100,7 @@ describe('graphs', () => {
 
         expect(await stardog.existsGraph({
             graph: 'urn:drop'
-        })).toBeFalsy();
+        })).toBe(false);
     });
 
     test('copy', async () => {
@@ -111,7 +111,7 @@ describe('graphs', () => {
 
         expect(await stardog.existsGraph({
             graph: 'urn:to'
-        })).toBeFalsy();
+        })).toBe(false);
 
         await stardog.copyGraph({
             from: 'urn:from',
@@ -120,7 +120,7 @@ describe('graphs', () => {
 
         expect(await stardog.existsGraph({
             graph: 'urn:to'
-        })).toBeTruthy();
+        })).toBe(true);
 
         await Promise.all([
             stardog.dropGraph({
@@ -140,7 +140,7 @@ describe('graphs', () => {
 
         expect(await stardog.existsGraph({
             graph: 'urn:to'
-        })).toBeFalsy();
+        })).toBe(false);
 
         await stardog.moveGraph({
             from: 'urn:from',
@@ -149,11 +149,11 @@ describe('graphs', () => {
 
         expect(await stardog.existsGraph({
             graph: 'urn:from'
-        })).toBeFalsy();
+        })).toBe(false);
 
         expect(await stardog.existsGraph({
             graph: 'urn:to'
-        })).toBeTruthy();
+        })).toBe(true);
 
         await Promise.all([
             stardog.dropGraph({
@@ -179,8 +179,7 @@ describe('graphs', () => {
             to: 'urn:to'
         });
 
-        expect(await stardog.query({
-            accept: 'text/boolean',
+        expect(await stardog.ask({
             graph: 'urn:to',
             // TODO: add stripIndent
             query: `
@@ -189,7 +188,7 @@ describe('graphs', () => {
                     <urn:to> <urn:to> <urn:to>
                 }
             `
-        })).toBeTruthy();
+        })).toBe(true);
 
         await Promise.all([
             stardog.dropGraph({
@@ -229,7 +228,7 @@ describe('graphs', () => {
     test('exists', async () => {
         expect(await stardog.existsGraph({
             graph: 'urn:exists'
-        })).toBeFalsy();
+        })).toBe(false);
 
         await stardog.update({
             query: 'insert data {<urn:exists> <urn:exists> <urn:exists>}',
@@ -238,7 +237,7 @@ describe('graphs', () => {
 
         expect(await stardog.existsGraph({
             graph: 'urn:exists'
-        })).toBeTruthy();
+        })).toBe(true);
 
         await stardog.dropGraph({
             graph: 'urn:exists'
@@ -248,15 +247,13 @@ describe('graphs', () => {
 
 describe('queries', () => {
     test('ask', async () => {
-        expect(await stardog.query({
-            accept: 'text/boolean',
+        expect(await stardog.ask({
             query: 'ask {<urn:s> <urn:p> <urn:o>}'
-        })).toBeTruthy();
+        })).toBe(true);
 
-        expect(await stardog.query({
-            accept: 'text/boolean',
+        expect(await stardog.ask({
             query: 'ask {<urn:s> <urn:p> <urn:p>}'
-        })).toBeFalsy();
+        })).toBe(false);
     });
 
     test('select', async () => {
@@ -287,10 +284,9 @@ describe('update queries', () => {
             query: 'insert data {<urn:insert> <urn:insert> <urn:insert>}'
         });
 
-        expect(await stardog.query({
-            accept: 'text/boolean',
+        expect(await stardog.ask({
             query: 'ask {<urn:insert> <urn:insert> <urn:insert>}'
-        })).toBeTruthy();
+        })).toBe(true);
 
         await stardog.update({
             query: 'delete data {<urn:insert> <urn:insert> <urn:insert>}'
@@ -302,18 +298,16 @@ describe('update queries', () => {
             query: 'insert data {<urn:remove> <urn:remove> <urn:remove>}'
         });
 
-        expect(await stardog.query({
-            accept: 'text/boolean',
+        expect(await stardog.ask({
             query: 'ask {<urn:remove> <urn:remove> <urn:remove>}'
-        })).toBeTruthy();
+        })).toBe(true);
 
         await stardog.update({
             query: 'delete data {<urn:remove> <urn:remove> <urn:remove>}'
         });
 
-        expect(await stardog.query({
-            accept: 'text/boolean',
+        expect(await stardog.ask({
             query: 'ask {<urn:remove> <urn:remove> <urn:remove>}'
-        })).toBeFalsy();
+        })).toBe(false);
     });
 });
