@@ -5,7 +5,7 @@ jest.setTimeout(10000);
 const testDb = 'test';
 
 const stardog = new Stardog({
-    endpoint: 'http://localhost:5820',
+    endpoint: 'http://localhost:5821',
     database: testDb,
     auth: {
         user: 'admin',
@@ -80,6 +80,97 @@ describe('databases', () => {
         expect(await stardog.existsDatabase({
             database: testDb + '2'
         })).toBe(false);
+    });
+
+    describe('meta', () => {
+        test('all fields', async () => {
+            expect(Object.keys(await stardog.metaDatabase({
+                database: testDb
+            })).length).toBe(37);
+        });
+
+        test('custom field', async () => {
+            const meta = await stardog.metaDatabase({
+                database: testDb,
+                fields: [
+                    'database.online'
+                ]
+            });
+
+            expect(Object.keys(meta).length).toBe(1);
+            expect(meta['database.online']).toBe(true);
+        });
+    });
+
+    test('online', async () => {
+        await stardog.offDatabase({
+            database: testDb
+        });
+
+        expect((await stardog.metaDatabase({
+            database: testDb,
+            fields: [
+                'database.online'
+            ]
+        }))['database.online']).toBe(false);
+
+        await stardog.onDatabase({
+            database: testDb
+        });
+
+        expect((await stardog.metaDatabase({
+            database: testDb,
+            fields: [
+                'database.online'
+            ]
+        }))['database.online']).toBe(true);
+    });
+
+    test('offline', async () => {
+        expect((await stardog.metaDatabase({
+            database: testDb,
+            fields: [
+                'database.online'
+            ]
+        }))['database.online']).toBe(true);
+
+        await stardog.offDatabase({
+            database: testDb
+        });
+
+        expect((await stardog.metaDatabase({
+            database: testDb,
+            fields: [
+                'database.online'
+            ]
+        }))['database.online']).toBe(false);
+
+        await stardog.onDatabase({
+            database: testDb
+        });
+    });
+
+    test('copy', async () => {
+        await stardog.offDatabase({
+            database: testDb
+        });
+
+        await stardog.copyDatabase({
+            from: testDb,
+            to: testDb + '2'
+        });
+
+        expect(await stardog.existsDatabase({
+            database: testDb + '2'
+        })).toBe(true);
+
+        await stardog.onDatabase({
+            database: testDb
+        });
+
+        await stardog.dropDatabase({
+            database: testDb + '2'
+        });
     });
 });
 

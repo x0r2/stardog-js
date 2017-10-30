@@ -182,6 +182,110 @@ if (await stardog.existsDatabase({
 }
 ```
 
+#### metaDatabase
+
+Get metadata options for database.
+
+```js
+// Returns all metadata options
+
+const meta = await stardog.metaDatabase({
+    database: 'database'
+});
+
+/*
+options: {
+    'database.archetypes': '',
+    'database.connection.timeout': '',
+    'database.name': '',
+    'database.namespaces': '',
+    'database.online': '',
+    'database.time.creation': '',
+    'database.time.modification': '',
+    'icv.active.graphs': '',
+    'icv.consistency.automatic': '',
+    'icv.enabled': '',
+    'icv.reasoning.enabled': '',
+    'index.differential.enable.limit': '',
+    'index.differential.merge.limit': '',
+    'index.differential.size': '',
+    'index.literals.canonical': '',
+    'index.named.graphs': '',
+    'index.persist': '',
+    'index.persist.sync': '',
+    'index.size': '',
+    'index.statistics.update.automatic': '',
+    'index.type': '',
+    'preserve.bnode.ids': '',
+    'query.all.graphs': '',
+    'query.timeout': '',
+    'reasoning.approximate': '',
+    'reasoning.consistency.automatic': '',
+    'reasoning.punning.enabled': '',
+    'reasoning.sameas': '',
+    'reasoning.schema.graphs': '',
+    'reasoning.schema.timeout': '',
+    'reasoning.type': '',
+    'reasoning.virtual.graph.enabled': '',
+    'search.enabled': '',
+    'search.reindex.mode': '',
+    'spatial.enabled': '',
+    'strict.parsing': '',
+    'transaction.isolation': '',
+    'transaction.logging': ''
+}
+*/
+
+// Get custom fields
+
+const meta = await stardog.metaDatabase({
+    database: testDb,
+    fields: [
+        'database.online',
+        'database.time.creation'
+    ]
+});
+```
+
+#### onDatabase
+
+Bring the database online.
+
+```js
+stardog.onDatabase({
+    database: 'database'
+});
+````
+
+#### offDatabase
+
+Bring the database offline.
+
+```js
+stardog.offDatabase({
+    database: 'database'
+});
+````
+
+#### copyDatabase
+
+Copy database.
+
+```js
+// Bring the database offline
+
+await stardog.offDatabase({
+    database: 'from'
+});
+
+// Copy database 'from' to database 'to'
+
+await stardog.copyDatabase({
+    from: 'from',
+    to: 'to'
+});
+````
+
 ### Graphs
 
 #### dropGraph

@@ -34,20 +34,12 @@ export default class Stardog {
                 })
             }
         });
-
-        if (!resp.message || !/success/i.test(resp.message)) {
-            return Promise.reject(new Error('Unable to create database'));
-        }
     }
 
     async dropDatabase(options) {
         const resp = await this._delete(`/admin/databases/${options.database}`, {
             auth: options.auth
         });
-
-        if (!resp.message || !/success/i.test(resp.message)) {
-            return Promise.reject(new Error('Unable to drop database'));
-        }
     }
 
     async sizeDatabase(options) {
@@ -66,6 +58,78 @@ export default class Stardog {
         return (await this.listDatabases({
             auth: options.auth
         })).includes(options.database);
+    }
+
+    metaDatabase(options) {
+        const fields = {};
+
+        if (options.fields) {
+            options.fields.forEach((item) => {
+                fields[item] = '';
+            });
+        }
+
+        return this._put(`/admin/databases/${options.database}/options`, {
+            auth: options.auth,
+            json: Object.keys(fields).length ? fields : {
+                'database.archetypes': '',
+                'database.connection.timeout': '',
+                'database.name': '',
+                'database.namespaces': '',
+                'database.online': '',
+                'database.time.creation': '',
+                'database.time.modification': '',
+                'icv.active.graphs': '',
+                'icv.consistency.automatic': '',
+                'icv.enabled': '',
+                'icv.reasoning.enabled': '',
+                'index.differential.enable.limit': '',
+                'index.differential.merge.limit': '',
+                'index.differential.size': '',
+                'index.literals.canonical': '',
+                'index.named.graphs': '',
+                'index.persist': '',
+                'index.persist.sync': '',
+                'index.size': '',
+                'index.statistics.update.automatic': '',
+                'index.type': '',
+                'preserve.bnode.ids': '',
+                'query.all.graphs': '',
+                'query.timeout': '',
+                'reasoning.approximate': '',
+                'reasoning.consistency.automatic': '',
+                'reasoning.punning.enabled': '',
+                'reasoning.sameas': '',
+                'reasoning.schema.graphs': '',
+                'reasoning.schema.timeout': '',
+                'reasoning.type': '',
+                'reasoning.virtual.graph.enabled': '',
+                'search.enabled': '',
+                'search.reindex.mode': '',
+                'spatial.enabled': '',
+                'strict.parsing': '',
+                'transaction.isolation': '',
+                'transaction.logging': ''
+            }
+        });
+    }
+
+    onDatabase(options) {
+        return this._put(`/admin/databases/${options.database}/online`, {
+            auth: options.auth
+        });
+    }
+
+    offDatabase(options) {
+        return this._put(`/admin/databases/${options.database}/offline`, {
+            auth: options.auth
+        });
+    }
+
+    copyDatabase(options) {
+        return this._put(`/admin/databases/${options.from}/copy?to=${options.to}`, {
+            auth: options.auth
+        });
     }
 
     dropGraph(options) {
@@ -188,12 +252,14 @@ export default class Stardog {
         const resp = await request(url, data);
         const contentType = resp.headers['content-type'];
 
-        if (!contentType) {
+        if (!contentType || !resp.body) {
             return;
         }
+        if (typeof resp.body !== 'string') {
+            return resp.body;
+        }
 
-        if (contentType.includes('application/sparql-results+json') ||
-            contentType.includes('application/json')) {
+        if (contentType.includes('application/sparql-results+json') || contentType.includes('application/json')) {
             try {
                 return JSON.parse(resp.body);
             } catch (err) {
@@ -218,6 +284,13 @@ export default class Stardog {
         return this._request(url, {
             ...options,
             method: 'POST'
+        });
+    }
+
+    _put(url, options) {
+        return this._request(url, {
+            ...options,
+            method: 'PUT'
         });
     }
 
