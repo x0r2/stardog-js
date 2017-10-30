@@ -28,8 +28,8 @@
   ],
   "scripts": {
     "build": "babel index.mjs -o index.js",
-    "test": "npm build && jest",
-    "prepublish": "npm build && npm test"
+    "test": "npm run build && jest",
+    "prepublish": "npm run build && npm test"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
