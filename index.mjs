@@ -179,7 +179,7 @@ export default class Stardog {
             `
         });
 
-        const graphs = resp.split(/\r\n/); // TODO: check \n
+        const graphs = resp.split(/\r?\n/);
 
         graphs.shift();
         graphs.pop();
