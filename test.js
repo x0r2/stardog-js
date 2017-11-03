@@ -5,7 +5,7 @@ jest.setTimeout(10000);
 const testDb = 'test';
 
 const stardog = new Stardog({
-    endpoint: 'http://localhost:5821',
+    endpoint: 'http://localhost:5820',
     database: testDb,
     auth: {
         user: 'admin',
