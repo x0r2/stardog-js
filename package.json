@@ -1,10 +1,13 @@
 {
   "name": "stardog-js",
   "version": "0.5.0",
-  "description": "JavaScript (Node.js) library for communication with the Stardog HTTP server.",
+  "description": "Node.js library for communicating with the Stardog HTTP server.",
   "author": "x0r2",
   "license": "MIT",
-  "repository": "https://github.com/x0r2/stardog-js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x0r2/stardog-js.git"
+  },
   "engines": {
     "node": ">=8.0.0"
   },
