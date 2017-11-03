@@ -1,18 +1,10 @@
 # stardog-js
-JavaScript (Node.js) library for communication with the Stardog HTTP server.
+Node.js library for communicating with the Stardog HTTP server.
 
-## Install
-
-NPM:
+## Installation
 
 ```sh
 $ npm i stardog-js
-```
-
-Yarn:
-
-```sh
-$ yarn add stardog-js
 ```
 
 ## Testing
