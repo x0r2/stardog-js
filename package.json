@@ -18,11 +18,7 @@
     "graph store",
     "semantic web",
     "linked data",
-    "sparql",
-    "owl",
-    "rdf",
-    "turtle",
-    "n3"
+    "sparql"
   ],
   "files": [
     "index.mjs",
