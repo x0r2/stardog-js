@@ -87,7 +87,7 @@ describe('databases', () => {
         test('all fields', async () => {
             expect(Object.keys(await stardog.metaDatabase({
                 database: testDb
-            })).length).toBe(37);
+            }))).toHaveLength(37);
         });
 
         test('custom field', async () => {
@@ -98,7 +98,7 @@ describe('databases', () => {
                 ]
             });
 
-            expect(Object.keys(meta).length).toBe(1);
+            expect(Object.keys(meta)).toHaveLength(1);
             expect(meta['database.online']).toBe(true);
         });
     });
