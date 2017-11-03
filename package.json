@@ -31,20 +31,23 @@
   ],
   "scripts": {
     "build": "babel index.mjs -o index.js",
-    "test": "npm run build && jest",
-    "prepublish": "npm run build && npm test"
+    "test": "jest",
+    "prepare": "npm run build && npm test"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "jest": "^21.2.1"
+    "jest": "^21.2.1",
+    "request": "^2.34.0"
   },
   "dependencies": {
     "clone": "^2.1.1",
     "common-tags": "^1.4.0",
-    "request": "^2.82.0",
     "request-promise-native": "^1.0.5"
+  },
+  "peerDependencies": {
+    "request": "^2.34.0"
   }
 }
