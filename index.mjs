@@ -219,8 +219,8 @@ export default class Stardog {
             accept: options.accept,
             form: {
                 query: options.query,
-                limit: options.limit,
                 offset: options.offset,
+                limit: options.limit,
                 timeout: options.timeout,
                 reasoning: options.reasoning,
                 'using-graph-uri': options.graph,
