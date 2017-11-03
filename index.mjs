@@ -1,5 +1,8 @@
+import * as commonTags from 'common-tags';
 import clone from 'clone';
 import request from 'request-promise-native';
+
+const {stripIndent} = commonTags;
 
 export default class Stardog {
     constructor(options) {
@@ -169,8 +172,7 @@ export default class Stardog {
             database: options.database,
             auth: options.auth,
             accept: 'text/csv',
-            // TODO: add stripIndent
-            query: `
+            query: stripIndent`
                 select distinct ?g where {
                     graph ?g {?s ?p ?o}
                 }

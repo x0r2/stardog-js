@@ -1,3 +1,4 @@
+import {stripIndent} from 'common-tags';
 import Stardog from './index';
 
 jest.setTimeout(10000);
@@ -272,8 +273,7 @@ describe('graphs', () => {
 
         expect(await stardog.ask({
             graph: 'urn:to',
-            // TODO: add stripIndent
-            query: `
+            query: stripIndent`
                 ask {
                     <urn:from> <urn:from> <urn:from> .
                     <urn:to> <urn:to> <urn:to>
