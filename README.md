@@ -4,8 +4,11 @@ Node.js library for communicating with the Stardog HTTP server.
 ## Installation
 
 ```sh
+$ npm i request
 $ npm i stardog-js
 ```
+
+`request` is defined as a peer-dependency and thus has to be installed separately.
 
 ## Testing
 
@@ -270,7 +273,7 @@ await stardog.offDatabase({
     database: 'from'
 });
 
-// Copy database "from" to database "to"
+// Copy database 'from' to database 'to'
 
 await stardog.copyDatabase({
     from: 'from',
@@ -352,7 +355,7 @@ const data = await stardog.query({
     query: 'select * where {?s ?p ?o}'
 });
 
-// Set accept to "text/boolean", returns true or false
+// Set accept to 'text/boolean', returns true or false
 
 const data = await stardog.query({
     accept: 'text/boolean',
@@ -363,7 +366,7 @@ const data = await stardog.query({
     query: 'construct {?s ?p ?o} where {?s ?p ?o}'
 });
 
-// Query to named graph "tag:stardog:api:context:default"
+// Query to named graph 'tag:stardog:api:context:default'
 
 const data = await stardog.query({
     query: 'select * where {?s ?p ?o}',
@@ -384,7 +387,7 @@ const data = await stardog.query({
 
 #### ask
 
-Alias for "query" with accept "text/boolean".
+Alias for `query` with accept `text/boolean`.
 
 ```js
 const data = await stardog.ask({
@@ -412,14 +415,14 @@ stardog.update({
     query: 'delete data {<urn:a> <urn:b> <urn:c>}'
 });
 
-// Insert to named graph "urn:graph"
+// Insert to named graph 'urn:graph'
 
 stardog.update({
     query: 'insert data {<urn:a> <urn:b> <urn:c>}',
     insertGraph: 'urn:graph'
 });
 
-// Remove from named graph "urn:graph"
+// Remove from named graph 'urn:graph'
 
 stardog.update({
     query: 'delete data {<urn:a> <urn:b> <urn:c>}',
