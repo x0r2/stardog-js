@@ -234,7 +234,7 @@ options: {
 // Get custom fields
 
 const meta = await stardog.metaDatabase({
-    database: testDb,
+    database: 'database',
     fields: [
         'database.online',
         'database.time.creation'
