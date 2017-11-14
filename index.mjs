@@ -135,6 +135,13 @@ export default class Stardog {
         });
     }
 
+    exportDatabase(options) {
+        return this._get(`/${options.database}/export`, {
+            auth: options.auth,
+            accept: options.accept
+        });
+    }
+
     dropGraph(options) {
         return this.update({
             database: options.database,

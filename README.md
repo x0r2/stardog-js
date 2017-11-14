@@ -281,6 +281,23 @@ await stardog.copyDatabase({
 });
 ````
 
+#### exportDatabase
+
+Export database.
+
+```js
+stardog.exportDatabase({
+    database: 'database'
+});
+
+// Export database with accept
+
+stardog.exportDatabase({
+    database: 'database',
+    accept: 'application/n-triples'
+});
+```
+
 ### Graphs
 
 #### dropGraph

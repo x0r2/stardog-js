@@ -173,6 +173,30 @@ describe('databases', () => {
             database: testDb + '2'
         });
     });
+
+    describe('export', () => {
+        test('default accept', async () => {
+            expect((await stardog.exportDatabase({
+                database: testDb
+            })).replace(/\r\n/g, '\n').trim()).toBe(stripIndent`
+                @prefix : <http://api.stardog.com/> .
+                @prefix owl: <http://www.w3.org/2002/07/owl#> .
+                @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+                @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+                @prefix stardog: <tag:stardog:api:> .
+                @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+    
+                <urn:s> <urn:p> <urn:o> .
+            `);
+        });
+
+        test('accept n-triples', async () => {
+            expect(await stardog.exportDatabase({
+                database: testDb,
+                accept: 'application/n-triples'
+            })).toBe('<urn:s> <urn:p> <urn:o> .\n');
+        });
+    });
 });
 
 describe('graphs', () => {
