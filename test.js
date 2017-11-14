@@ -87,7 +87,7 @@ describe('databases', () => {
         test('all fields', async () => {
             expect(Object.keys(await stardog.metaDatabase({
                 database: testDb
-            }))).toHaveLength(37);
+            }))).toHaveLength(38);
         });
 
         test('custom field', async () => {
@@ -185,7 +185,7 @@ describe('databases', () => {
                 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
                 @prefix stardog: <tag:stardog:api:> .
                 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-    
+
                 <urn:s> <urn:p> <urn:o> .
             `);
         });
