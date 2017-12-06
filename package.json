@@ -1,6 +1,6 @@
 {
   "name": "stardog-js",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Node.js library for communicating with the Stardog HTTP server.",
   "author": "x0r2",
   "license": "MIT",
