@@ -87,7 +87,7 @@ describe('databases', () => {
         test('all fields', async () => {
             expect(Object.keys(await stardog.metaDatabase({
                 database: testDb
-            }))).toHaveLength(38);
+            }))).toHaveLength(37);
         });
 
         test('custom field', async () => {
