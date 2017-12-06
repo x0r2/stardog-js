@@ -28,7 +28,7 @@
   "scripts": {
     "build": "babel index.mjs -o index.js",
     "test": "jest",
-    "prepare": "npm run build && npm test"
+    "prepublish": "npm run build && npm test"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
